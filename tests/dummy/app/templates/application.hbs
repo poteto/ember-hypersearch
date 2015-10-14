@@ -1,3 +1,76 @@
-<h2 id="title">Welcome to Ember</h2>
+<h1>Top Secret Employee Database</h1>
+<h2>Component - Block</h2>
+
+{{#if selectedEmployee}}
+  <h3>Employee Of The Day</h3>
+  <p id="eotd">
+    <marquee>{{selectedEmployee.name}}</marquee>
+  </p>
+{{/if}}
+
+{{#hyper-search
+    id="component-block"
+    minQueryLength=1
+    endpoint="/api/v1/users"
+    resultKey="name"
+    selectResult="selectResult" as |search|}}
+  <form class="hypersearch" {{action "commit" on="submit"}}>
+    <input
+      class="hypersearch-input"
+      name="query"
+      type="text"
+      oninput={{action "search" target=search}}
+      onchange={{action "search" target=search}}
+    >
+    <ul class="hypersearch-results">
+      {{#if search.results}}
+        <p id="result-count">Found {{search.results.length}} results.</p>
+      {{/if}}
+
+      {{#each search.results as |result|}}
+        <li class="hypersearch-result">
+          <span {{action "selectResult" result on="click"}}>
+            {{#if search.resultKey}}
+              {{get result search.resultKey}}
+            {{else}}
+              {{result}}
+            {{/if}}
+          </span>
+        </li>
+      {{/each}}
+    </ul>
+    <button type="submit">Submit</button>
+  </form>
+{{/hyper-search}}
+
+<h2>All Users ({{model.length}})</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Full Name</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each model as |user|}}
+      <tr>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<hr>
+
+<h2>Component - Inline</h2>
+
+{{hyper-search
+    id="component-inline"
+    debounceRate=1000
+    endpoint="/api/v1/users"
+    resultKey="email"
+    selectResult="selectResult"
+}}
 
 {{outlet}}
