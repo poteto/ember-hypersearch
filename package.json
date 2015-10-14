@@ -1,6 +1,6 @@
 {
   "name": "ember-hypersearch",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Hyperspeed real-time search with caching",
   "directories": {
     "doc": "doc",
