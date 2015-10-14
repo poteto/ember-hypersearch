@@ -1,0 +1,26 @@
+{{#if hasBlock}}
+  {{yield this}}
+{{else}}
+  <form class="hypersearch" {{action "commit" on="submit"}}>
+    <input
+      class="hypersearch-input"
+      name="query"
+      type="text"
+      oninput={{action "search"}}
+      onchange={{action "search"}}
+    >
+    <ul class="hypersearch-results">
+      {{#each results as |result|}}
+        <li class="hypersearch-result">
+          <span {{action "selectResult" result on="click"}}>
+            {{#if resultKey}}
+              {{get result resultKey}}
+            {{else}}
+              {{result}}
+            {{/if}}
+          </span>
+        </li>
+      {{/each}}
+    </ul>
+  </form>
+{{/if}}
