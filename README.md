@@ -27,7 +27,8 @@ Then include the `hyper-search` component in a template of your choice:
 {{hyper-search
     endpoint="/api/v1/users"
     resultKey="email"
-    selectResult="selectResult"
+    selectResult=(action "selectResult")
+    handleResults=(action "handleResults")
 }}
 ```
 
@@ -37,20 +38,19 @@ The component can also be used in block form, if you pass it a template:
 {{#hyper-search
     endpoint="/api/v1/users"
     resultKey="name"
-    selectResult="selectResult" as |search|}}
+    selectResult=(action "selectResult") as |hypersearch|}}
   
   <form {{action "commit" on="submit"}}>
-    <input 
-      name="query" 
-      type="text" 
-      oninput={{action "search" target=search}} 
-      onchange={{action "search" target=search}}
-    >
+    {{one-way-input
+        name="query" 
+        type="text" 
+        update=(action "search" target=hypersearch)
+    }}
     <ul>
-      {{#each search.results as |result|}}
+      {{#each hypersearch.results as |result|}}
         <li>
-          <span {{action "selectResult" result on="click"}}>
-            {{get result search.resultKey}}
+          <span {{action (action "selectResult") result on="click"}}>
+            {{get result hypersearch.resultKey}}
           </span>
         </li>
       {{/each}}
@@ -100,6 +100,18 @@ export default HyperSearch.reopen({
 Default: `null`
 
 Results of the current query are displayed in a `ul` element below the `input`. If your result is an array of objects, you can optionally specify a key to display in the list of results.
+
+### `selectResult: {Function|String}`
+
+Default: `null`
+
+If a closure action / action name is passed to the component, the action will receive the selected result.
+
+### `handleResults: {Function|String}`
+
+Default: `null`
+
+If a closure action / action name is passed to the component, the action will receive the results of the query.
 
 ## Roadmap
 

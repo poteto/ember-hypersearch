@@ -4,8 +4,7 @@ const {
   RSVP: { Promise },
   $: { getJSON },
   A: emberArray,
-  Route,
-  set,
+  Route
 } = Ember;
 
 export default Route.extend({
@@ -13,11 +12,5 @@ export default Route.extend({
     return new Promise((resolve, reject) => {
       getJSON('/api/v1/users').then((results) => resolve(emberArray(results)), reject);
     });
-  },
-
-  actions: {
-    selectResult(result) {
-      set(this, 'controller.selectedEmployee', result);
-    }
   }
 });

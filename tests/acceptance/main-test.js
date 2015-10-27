@@ -43,3 +43,11 @@ test('it accepts a `resultKey`', function(assert) {
     .searchForUserByName('component-inline', 'Miss Adan Gorczany')
     .assertResultLength('component-inline', 1);
 });
+
+test('it handles results', function(assert) {
+  return new MainPO(assert, { routeName: '/' })
+    .assertVisitUrl()
+    .searchForUserByName('component-inline', 'Miss Adan Gorczany')
+    .assertClosureActionResultsLength('component-inline', 1);
+});
+
