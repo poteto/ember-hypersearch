@@ -2,13 +2,12 @@
   {{yield this}}
 {{else}}
   <form class="hypersearch" {{action "commit" on="submit"}}>
-    <input
-      class="hypersearch-input"
-      name="query"
-      type="text"
-      oninput={{action "search"}}
-      onchange={{action "search"}}
-    >
+    {{one-way-input
+        class="hypersearch-input"
+        name="query"
+        type="text"
+        update=(action "search")
+    }}
     <ul class="hypersearch-results">
       {{#each results as |result|}}
         <li class="hypersearch-result">

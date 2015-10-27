@@ -13,25 +13,24 @@
     minQueryLength=1
     endpoint="/api/v1/users"
     resultKey="name"
-    selectResult="selectResult" as |search|}}
+    selectResult=(action "selectResult") as |hypersearch|}}
   <form class="hypersearch" {{action "commit" on="submit"}}>
-    <input
-      class="hypersearch-input"
-      name="query"
-      type="text"
-      oninput={{action "search" target=search}}
-      onchange={{action "search" target=search}}
-    >
+    {{one-way-input
+        class="hypersearch-input"
+        name="query"
+        type="text"
+        update=(action "search" target=hypersearch)
+    }}
     <ul class="hypersearch-results">
-      {{#if search.results}}
-        <p id="result-count">Found {{search.results.length}} results.</p>
+      {{#if hypersearch.results}}
+        <p id="result-count">Found {{hypersearch.results.length}} results.</p>
       {{/if}}
 
-      {{#each search.results as |result|}}
+      {{#each hypersearch.results as |result|}}
         <li class="hypersearch-result">
-          <span {{action "selectResult" result on="click"}}>
-            {{#if search.resultKey}}
-              {{get result search.resultKey}}
+          <span {{action (action "selectResult") result on="click"}}>
+            {{#if hypersearch.resultKey}}
+              {{get result hypersearch.resultKey}}
             {{else}}
               {{result}}
             {{/if}}
@@ -64,13 +63,17 @@
 <hr>
 
 <h2>Component - Inline</h2>
+<div class="inline-results-length">
+  {{results.length}}
+</div>
 
 {{hyper-search
     id="component-inline"
     debounceRate=1000
     endpoint="/api/v1/users"
     resultKey="email"
-    selectResult="selectResult"
+    selectResult=(action "selectResult")
+    handleResults=(action "handleResults")
 }}
 
 {{outlet}}
