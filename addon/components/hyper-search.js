@@ -10,7 +10,8 @@ const {
   get,
   set,
   isBlank,
-  isPresent
+  isPresent,
+  typeOf
 } = Ember;
 
 /**
@@ -103,7 +104,17 @@ export default Component.extend({
   },
 
   _setResults(results) {
+    this._handleAction('handleResults', results);
+
     return set(this, 'results', results);
+  },
+
+  _handleAction(actionName, ...args) {
+    if (this.attrs && typeOf(this.attrs[actionName]) === 'function') {
+      this.attrs[actionName](...args);
+    } else {
+      this.sendAction('selectResult', ...args);
+    }
   },
 
   actions: {
@@ -112,7 +123,7 @@ export default Component.extend({
     },
 
     selectResult(result) {
-      this.sendAction('selectResult', result);
+      this._handleAction('selectResult', result);
     }
   }
 });

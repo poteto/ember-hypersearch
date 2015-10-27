@@ -24,6 +24,12 @@ export default class MainPO extends PageObject {
     });
   }
 
+  assertClosureActionResultsLength(expectedLength) {
+    return this.then(() => {
+      this.assert.ok(find(`.inline-results-length:contains("${expectedLength}")`), `it displays ${expectedLength} results from the closure action`);
+    });
+  }
+
   assertEmployeeOfTheDay() {
     return this.then(() => {
       this.assert.ok(findWithAssert('#eotd'), 'it displays the selected result');
