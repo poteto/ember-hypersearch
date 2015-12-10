@@ -18,6 +18,7 @@ const {
  * Returns the key for the query in the cache. Only works in conjunction with
  * Ember.get.
  *
+ * @public
  * @param {String} query
  * @return {String} nested key name
  */
@@ -68,7 +69,7 @@ export default Component.extend({
       return reject();
     }
 
-    const cachedValue = get(this, keyForQuery(query));
+    let cachedValue = get(this, keyForQuery(query));
 
     return isPresent(cachedValue) ? resolve(cachedValue) : this.requestAndCache(...arguments);
   },
@@ -76,6 +77,7 @@ export default Component.extend({
   /**
    * Override to handle the fetching of data. Must return a `Promise`.
    *
+   * @public
    * @method request
    * @param {String} query
    * @return {Promise}
@@ -113,7 +115,7 @@ export default Component.extend({
     if (this.attrs && typeOf(this.attrs[actionName]) === 'function') {
       this.attrs[actionName](...args);
     } else {
-      this.sendAction('selectResult', ...args);
+      this.sendAction(actionName, ...args);
     }
   },
 

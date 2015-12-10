@@ -1,7 +1,7 @@
 # ember-hypersearch :dash:
 *Hyperspeed real-time search with caching*
 
-[![npm version](https://badge.fury.io/js/ember-hypersearch.svg)](https://badge.fury.io/js/ember-hypersearch) [![Build Status](https://travis-ci.org/poteto/ember-hypersearch.svg)](https://travis-ci.org/poteto/ember-hypersearch)
+[![npm version](https://badge.fury.io/js/ember-hypersearch.svg)](https://badge.fury.io/js/ember-hypersearch) [![Build Status](https://travis-ci.org/poteto/ember-hypersearch.svg?branch=master)](https://travis-ci.org/poteto/ember-hypersearch)
 
 Existing addons that implement real-time typeahead search assume that your app already has all the data. `ember-hypersearch` lets you query an endpoint directly, and caches results locally for better performance when the same query is repeated.
 

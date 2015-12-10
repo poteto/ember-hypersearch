@@ -62,13 +62,13 @@ test('#removeAllFromCache removes all results from the cache', function(assert) 
 });
 
 test('#actions#search debounces the search', function(assert) {
+  const done = assert.async();
   const expectedResult = { foo: 'foo', poo: 'poo' };
   const component = this.subject({
     endpoint: '/',
     debounceRate: 5
   });
   sandbox.stub(component, 'request', resolve);
-  sandbox.spy(Ember.run, 'debounce');
 
   component.send('search', null, 'foo'); // first call is not debounced
   assert.deepEqual(get(component, '_cache'), { foo: 'foo' }, 'should return result immediately on first query');
@@ -79,5 +79,6 @@ test('#actions#search debounces the search', function(assert) {
 
   later(this, () => {
     assert.deepEqual(get(component, '_cache'), expectedResult, 'should debounce');
+    done();
   }, get(component, 'debounceRate') + 2);
 });
