@@ -51,6 +51,7 @@ export default class PageObject {
    *      .doStuff();
    *  });
    * ```
+   * @public
    * @method pause
    * @param {Void}
    * @return {this}
@@ -62,6 +63,7 @@ export default class PageObject {
   /**
    * Embiggens the testing container for easier inspection.
    *
+   * @public
    * @method embiggen
    * @param {String} testContainerId
    * @return {this}
@@ -82,6 +84,7 @@ export default class PageObject {
    *  });
    * ```
    *
+   * @public
    * @method debug
    * @param {Void}
    * @return {this}
