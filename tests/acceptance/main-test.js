@@ -1,17 +1,15 @@
-import Ember from 'ember';
-import { module, test } from 'qunit';
-import startApp from '../../tests/helpers/start-app';
+import { test } from 'qunit';
+import moduleForAcceptance from '../helpers/module-for-acceptance';
+import setupPretender from '../helpers/setup-pretender';
 import MainPO from '../../tests/helpers/page-objects/main';
 
-const { run } = Ember;
-
-module('Acceptance | main', {
-  beforeEach: function() {
-    this.application = startApp();
+moduleForAcceptance('Acceptance | main', {
+  beforeEach() {
+    this.server = setupPretender();
   },
 
-  afterEach: function() {
-    run(this.application, 'destroy');
+  afterEach() {
+    this.server.shutdown();
   }
 });
 
