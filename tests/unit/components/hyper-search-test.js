@@ -69,7 +69,6 @@ test('#actions#search debounces the search', function(assert) {
     debounceRate: 5
   });
   sandbox.stub(component, 'request', resolve);
-  sandbox.spy(Ember.run, 'debounce');
 
   component.send('search', null, 'foo'); // first call is not debounced
   assert.deepEqual(get(component, '_cache'), { foo: 'foo' }, 'should return result immediately on first query');
