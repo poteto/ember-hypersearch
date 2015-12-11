@@ -74,7 +74,7 @@ The minimum length for a query before it fetches and returns results.
 
 Default: `0`
 
-If `> 0`, requests to your endpoint will be debounced to reduce the load on your API.
+If `> 0`, requests to your endpoint will be debounced by this number of milliseconds to reduce the load on your API.
 
 ### `endpoint: {String}`
 
