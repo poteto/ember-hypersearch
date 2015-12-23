@@ -27,6 +27,7 @@ Then include the `hyper-search` component in a template of your choice:
 {{hyper-search
     endpoint="/api/v1/users"
     resultKey="email"
+    placeholder="Search by email"
     selectResult=(action "selectResult")
     handleResults=(action "handleResults")
 }}
@@ -44,6 +45,7 @@ The component can also be used in block form, if you pass it a template:
     {{one-way-input
         name="query" 
         type="text" 
+        placeholder="Search for...
         update=(action "search" target=hypersearch)
     }}
     <ul>
@@ -74,7 +76,7 @@ The minimum length for a query before it fetches and returns results.
 
 Default: `0`
 
-If `> 0`, requests to your endpoint will be debounced to reduce the load on your API.
+If `> 0`, requests to your endpoint will be debounced by this number of milliseconds to reduce the load on your API.
 
 ### `endpoint: {String}`
 
@@ -100,6 +102,12 @@ export default HyperSearch.reopen({
 Default: `null`
 
 Results of the current query are displayed in a `ul` element below the `input`. If your result is an array of objects, you can optionally specify a key to display in the list of results.
+
+### `placeholder: {String}`
+
+Default: `null`
+
+An optional placeholder for the hypersearch input.
 
 ### `selectResult: {Function|String}`
 

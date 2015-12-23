@@ -32,6 +32,7 @@ export default Component.extend({
   debounceRate: 0,
   endpoint: null,
   resultKey: null,
+  placeholder: null,
 
   init() {
     this._super(...arguments);
