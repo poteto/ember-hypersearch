@@ -40,8 +40,8 @@ test('#requestAndCache caches queries with periods', function(assert) {
 
   return component.requestAndCache('pizza@party.com')
     .then((results) => {
-      assert.equal(results, 'pizza-party-com', 'should return results');
-      assert.equal(get(component, '_cache.pizza-party-com'), 'foo', 'should return and cache results');
+      assert.equal(results, 'pizza@party.com', 'should return results');
+      assert.equal(get(component, '_cache.pizza@party-com'), 'pizza@party.com', 'should return and cache results');
     });
 });
 
