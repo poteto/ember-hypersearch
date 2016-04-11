@@ -18,12 +18,26 @@ const {
  * Returns the key for the query in the cache. Only works in conjunction with
  * Ember.get.
  *
+ *
  * @public
  * @param {String} query
  * @return {String} nested key name
  */
 function keyForQuery(query) {
-  return `_cache.${query}`;
+  return `_cache.${safeKeyString(query)}`;
+}
+
+/**
+ * Ensure string does not contain characters that will cause Ember.get to break
+ *
+ * IE: Replaces periods (.) with dashes (-)
+ *
+ * @public
+ * @param {String} query
+ * @return {String} safe key name
+*/
+function safeKeyString(query) {
+  return query.replace('.', '-');
 }
 
 export default Component.extend({
@@ -50,8 +64,12 @@ export default Component.extend({
     return resolve(results);
   },
 
+  getCacheForQuery(query) {
+    return get(this, keyForQuery(query));
+  },
+
   removeFromCache(query) {
-    delete this._cache[query];
+    delete this._cache[safeKeyString(query)];
     this.notifyPropertyChange('_cache');
   },
 
@@ -70,7 +88,7 @@ export default Component.extend({
       return reject();
     }
 
-    let cachedValue = get(this, keyForQuery(query));
+    let cachedValue = this.getCacheForQuery(query);
 
     return isPresent(cachedValue) ? resolve(cachedValue) : this.requestAndCache(...arguments);
   },
