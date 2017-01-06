@@ -48,7 +48,7 @@
   "dependencies": {
     "ember-cli-babel": "^5.1.5",
     "ember-cli-htmlbars": "^1.0.1",
-    "ember-one-way-input": "^0.4.0"
+    "ember-one-way-controls": "^1.1.2"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
