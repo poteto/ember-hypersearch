@@ -37,7 +37,7 @@ function keyForQuery(query) {
  * @return {String} safe key name
 */
 function safeKeyString(query) {
-  return query.replace('.', '-');
+  return query.replace(/\./g, '-');
 }
 
 export default Component.extend({
