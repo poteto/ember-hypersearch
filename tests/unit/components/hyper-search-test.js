@@ -45,6 +45,18 @@ test('#requestAndCache caches queries with periods', function(assert) {
     });
 });
 
+test('#requestAndCache caches queries with more than one period', function(assert) {
+  const component = this.subject({ endpoint: '/' });
+  // no need to actually do an ajax request
+  sandbox.stub(component, 'request', resolve);
+
+  return component.requestAndCache('lots.of.periods')
+    .then((results) => {
+      assert.equal(results, 'lots.of.periods', 'should return results');
+      assert.equal(get(component, '_cache.lots-of-periods'), 'lots.of.periods', 'should return and cache results');
+    });
+});
+
 test('#removeFromCache removes a result from the cache', function(assert) {
   const expectedResult = { poo: '💩' };
   const component = this.subject({ endpoint: '/' });
@@ -73,6 +85,19 @@ test('#removeFromCache removes a result with period from cache', function(assert
   });
 });
 
+test('#removeFromCache removes a result with multiple periods from cache', function(assert) {
+  const expectedResult = { poo: '💩' };
+  const component = this.subject({ endpoint: '/' });
+
+  run(() => {
+    component.set('_cache', {
+      'lots-of-periods': 'foo',
+      poo: '💩'
+    });
+    component.removeFromCache('lots-of-periods');
+    assert.deepEqual(get(component, '_cache'), expectedResult, 'should remove the cached result');
+  });
+});
 test('#removeAllFromCache removes all results from the cache', function(assert) {
   const expectedResult = {};
   const component = this.subject({
